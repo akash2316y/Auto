@@ -78,7 +78,7 @@ async def broadcasting_func(client: Client, message: Message):
     )
 
 
-@Bot.on_message(filters.private & filters.command('dbroadcast') & admin)
+@Bot.on_message(filters.private & filters.command('dbroadcast') & filters.user(ADMIN))
 async def delete_broadcast(client, message):
     if message.reply_to_message:
         try:
