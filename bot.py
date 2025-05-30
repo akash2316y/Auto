@@ -1,4 +1,5 @@
 import os
+import asyncio
 from pyrogram import Client
 from aiohttp import web
 from config import API_ID, API_HASH, BOT_TOKEN
@@ -27,18 +28,18 @@ class Bot(Client):
         )
 
     async def start(self):
+        # Start web server
         app = web.AppRunner(await web_server())
         await app.setup()
-
         ba = "0.0.0.0"
-        port = int(os.environ.get("PORT", 8080)) or 8080  # Default to 8080 if PORT is not set
-
+        port = int(os.environ.get("PORT", 8080))
         try:
             await web.TCPSite(app, ba, port).start()
             print(f"Web server started on http://{ba}:{port}")
         except Exception as e:
             print(f"Error starting the web server: {e}")
 
+        # Start bot
         await super().start()
         me = await self.get_me()
         self.username = '@' + me.username
@@ -48,4 +49,17 @@ class Bot(Client):
         await super().stop()
         print('Bot Stopped Bye')
 
-Bot().run()
+# 🧠 Create event loop and run
+bot = Bot()
+
+async def main():
+    await bot.start()
+    # You can keep the bot alive manually, e.g., with:
+    await asyncio.Event().wait()
+
+if __name__ == "__main__":
+    try:
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(main())
+    except (KeyboardInterrupt, SystemExit):
+        print("Bot exited")
