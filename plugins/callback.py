@@ -33,8 +33,7 @@ async def callback_query_handler(client, query: CallbackQuery):
             text.ABOUT,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton('💥 ʀᴇᴘᴏ', url='https://github.com/TechifyBots/Auto-Approve-Bot'),
-                 InlineKeyboardButton('👨‍💻 ᴏᴡɴᴇʀ', url='https://telegram.me/TechifyRahul')],
+                [InlineKeyboardButton('👨‍💻 ᴏᴡɴᴇʀ', url='https://telegram.me/TechifyRahul')],
                 [InlineKeyboardButton("ʙᴀᴄᴋ", callback_data="start"),
                  InlineKeyboardButton("ᴄʟᴏꜱᴇ", callback_data="close")]
             ])
