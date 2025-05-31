@@ -13,4 +13,4 @@ DB_URI = os.environ.get("DB_URI", "mongodb+srv://akashrabha2005:781120@cluster0.
 DB_NAME = os.environ.get("DB_NAME", "AxomBotz")
 
 IS_FSUB = os.environ.get("IS_FSUB", "true").lower() == "true"  # Set "True" For Enable Force Subscribe
-AUTH_CHANNELS = list(map(int, os.environ.get("AUTH_CHANNEL", "-1002013038353 -1002108042638").split())) # Add Multiple channel ids
+AUTH_CHANNELS = list(map(int, os.environ.get("AUTH_CHANNEL", "-1002008497819").split())) # Add Multiple channel ids
