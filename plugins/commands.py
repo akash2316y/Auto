@@ -15,17 +15,29 @@ async def start_cmd(client, message):
             LOG_CHANNEL,
             text.LOG.format(message.from_user.mention, message.from_user.id)
         )
-    if IS_FSUB and not await get_fsub(client, message): return
+
+    if IS_FSUB and not await get_fsub(client, message):
+        return await message.reply_text(
+            text.START.format(message.from_user.mention),
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton('⇆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘs ⇆', url="https://t.me/AutoAcceptorXBot?startgroup=true&admin=invite_users")],
+                [InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about'), InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help')],
+                [InlineKeyboardButton('⇆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ ⇆', url="https://t.me/AutoAcceptorXBot?startchannel=true&admin=invite_users")]
+            ]),
+            reply_to_message_id=message.id  # 👈 Yeh line ensure karta hai reply
+        )
+
     await message.reply_text(
         text.START.format(message.from_user.mention),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton('⇆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘs ⇆', url=f"https://telegram.me/AutoAcceptorXBot?startgroup=true&admin=invite_users")],
-            [InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about'),
-             InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help')],
-            [InlineKeyboardButton('⇆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ ⇆', url=f"https://telegram.me/AutoAcceptorXBot?startchannel=true&admin=invite_users")]
-            ])
-        )
+            [InlineKeyboardButton('⇆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘs ⇆', url="https://t.me/AutoAcceptorXBot?startgroup=true&admin=invite_users")],
+            [InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about'), InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help')],
+            [InlineKeyboardButton('⇆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ ⇆', url="https://t.me/AutoAcceptorXBot?startchannel=true&admin=invite_users")]
+        ]),
+        reply_to_message_id=message.id  # 👈 Yeh line bhi add karo
+    )
 
 @Client.on_message(filters.command("stats") & filters.private & filters.user(ADMIN))
 async def total_users(client, message):
