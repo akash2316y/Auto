@@ -12,5 +12,5 @@ NEW_REQ_MODE = os.environ.get("NEW_REQ_MODE", "False").lower() == "true"  # Set 
 DB_URI = os.environ.get("DB_URI", "mongodb+srv://akashrabha2005:781120@cluster0.pv6yd2f.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DB_NAME = os.environ.get("DB_NAME", "AxomBotz")
 
-IS_FSUB = os.environ.get("IS_FSUB", "false").lower() == "true"  # Set "True" For Enable Force Subscribe
+IS_FSUB = os.environ.get("IS_FSUB", "true").lower() == "true"  # Set "True" For Enable Force Subscribe
 AUTH_CHANNELS = list(map(int, os.environ.get("AUTH_CHANNEL", "-1002013038353 -1002108042638").split())) # Add Multiple channel ids
