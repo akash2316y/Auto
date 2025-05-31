@@ -70,31 +70,31 @@ async def main(bot: Client, message: Message):
     except SessionPasswordNeeded:
         two_step_msg = await bot.ask(
             user_id,
-            '**Two-step verification is enabled. Please send your password.**\n\n**Enter /cancel to cancel.**',
+            '𝖳𝗐𝗈-𝗌𝗍𝖾𝗉 𝗏𝖾𝗋𝗂𝖿𝗂𝖼𝖺𝗍𝗂𝗈𝗇 𝗂𝗌 𝖾𝗇𝖺𝖻𝗅𝖾𝖽. 𝖯𝗅𝖾𝖺𝗌𝖾 𝗌𝖾𝗇𝖽 𝗒𝗈𝗎𝗋 𝗉𝖺𝗌𝗌𝗐𝗈𝗋𝖽.\𝗇\𝗇𝖤𝗇𝗍𝖾𝗋 /cancel 𝗍𝗈 𝖼𝖺𝗇𝖼𝖾𝗅.',
             filters=filters.text,
             timeout=300
         )
         if two_step_msg.text == '/cancel':
-            return await two_step_msg.reply('<b>Process cancelled!</b>')
+            return await two_step_msg.reply('𝖯𝗋𝗈𝖼𝖾𝗌𝗌 𝖼𝖺𝗇𝖼𝖾𝗅𝗅𝖾𝖽!')
         try:
             await client.check_password(password=two_step_msg.text)
         except PasswordHashInvalid:
-            return await two_step_msg.reply('**Invalid password provided.**')
+            return await two_step_msg.reply('𝖨𝗇𝗏𝖺𝗅𝗂𝖽 𝗉𝖺𝗌𝗌𝗐𝗈𝗋𝖽 𝗉𝗋𝗈𝗏𝗂𝖽𝖾𝖽')
 
     # Generate session string
     string_session = await client.export_session_string()
     await client.disconnect()
 
     if len(string_session) < SESSION_STRING_SIZE:
-        return await message.reply('<b>Invalid session string</b>')
+        return await message.reply('𝖨𝗇𝗏𝖺𝗅𝗂𝖽 𝗌𝖾𝗌𝗌𝗂𝗈𝗇 𝗌𝗍𝗋𝗂𝗇𝗀')
 
     try:
         # Store in database
         await tb.set_session(user_id, string_session)
     except Exception as e:
-        return await message.reply_text(f"<b>ERROR IN LOGIN:</b> `{e}`")
+        return await message.reply_text(f"𝖤𝖱𝖱𝖮𝖱 𝖨𝖭 𝖫𝖮𝖦𝖨𝖭: `{e}`")
 
     await bot.send_message(
         user_id,
-        "<b>Account logged in successfully.\n\nIf you get any AUTH KEY related error, use /logout and /login again.</b>"
+        "𝖠𝖼𝖼𝗈𝗎𝗇𝗍 𝗅𝗈𝗀𝗀𝖾𝖽 𝗂𝗇 𝗌𝗎𝖼𝖼𝖾𝗌𝗌𝖿𝗎𝗅𝗅𝗒.\𝗇\𝗇𝖨𝖿 𝗒𝗈𝗎 𝗀𝖾𝗍 𝖺𝗇𝗒 𝖠𝖴𝖳𝖧 𝖪𝖤𝖸 𝗋𝖾𝗅𝖺𝗍𝖾𝖽 𝖾𝗋𝗋𝗈𝗋, 𝗎𝗌𝖾 /logout 𝖺𝗇𝖽 /login 𝖺𝗀𝖺𝗂𝗇."
     )
